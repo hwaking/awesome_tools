@@ -26,4 +26,5 @@ List the most popular tools usage
   
 - **Linux 常用命令**
     
-    等待添加中......
+    记录常见的Linux 操作命令
+    持续添加中......
