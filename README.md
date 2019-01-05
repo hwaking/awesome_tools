@@ -5,7 +5,7 @@ List the most popular tools usage
 
 ## 文件介绍
 
-- **py2so Python文件加密**
+- **python_加密.py Python文件加密**
     
     ```
     编译py为so文件，更好的隐藏源码
