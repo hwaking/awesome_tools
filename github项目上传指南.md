@@ -1,3 +1,47 @@
+## 使用SSH密钥连接Github
+
+1. 看看是否存在SSH密钥(keys)
+```
+如果，不存在此目录，则进行第二步操作，否则，你本机已经存在ssh公钥和私钥，可以略过第二步，直接进入第三步操作。
+$ cd ~/.ssh
+```
+  
+2. 创建一对新的SSH密钥(keys)
+```
+$ ssh-keygen -t rsa -C "your_email@example.com"
+这将按照你提供的邮箱地址，创建一对密钥
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]
+接着，根据提示，你需要输入密码和确认密码,其实可以不用密码，就是到输密码的地方，都直接回车
+输入完成之后，屏幕会显示:
+Your identification has been saved in /c/Users/you/.ssh/id_rsa.
+Your public key has been saved in /c/Users/you/.ssh/id_rsa.pub.
+The key fingerprint is:
+01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com
+```
+  
+3. 在GitHub账户中添加你的公钥
+```
+运行如下命令，将公钥的内容复制到系统粘贴板(clipboard)中
+$ clip < ~/.ssh/id_rsa.pub
+
+github账户中添加公钥
+(1) 登陆GitHub,进入你的Account Settings
+(2) 在左边菜单，点击”SSH Keys”
+(3) 点击”Add SSH key”按钮
+(4) 粘贴你的密钥到key输入框中
+(5) 点击”Add Key”按钮
+(6) 再弹出窗口，输入你的GitHub密码，点击确认按钮,完成
+```
+
+4. 测试
+```
+输入如下命令，看到警告信息输入yes即可，显示Hi username! You’ve successfully authenticated, but GitHub does not provide shell access. 成功
+$ ssh -T git@github.com
+```
+
+
+
 ## 创建与更新项目
 
 1. 去github上创建自己的Repository
