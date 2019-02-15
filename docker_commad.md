@@ -51,8 +51,34 @@ docker rm `docker ps -a -q`
 
 ```
 
+## 外部访问容器
+
+- 容器中可以运行一些网络应用，要让外部也可以访问这些应用，可以通过 -P 或 -p 参数来指定端口映射。当使用 -P 标记时，Docker 会随机映射一个 49000~49900 的端口到内部容器开放的网络端口。
+
+1. 使用 -P 随机生成访问docker端口
+```
+# 例如：使用 docker container ls 可以看到，本地主机的 49155 被映射到了容器的 5000 端口。此时访问本机的 49155 端口即可访问容器内 web 应用提供的界面
+$ docker run -d -P training/webapp python app.py
+$ docker container ls -l
+CONTAINER ID  IMAGE                   COMMAND       CREATED        STATUS        PORTS                    NAMES
+bc533791f3f5  training/webapp:latest  python app.py 5 seconds ago  Up 2 seconds  0.0.0.0:49155->5000/tcp  nostalgic_morse
+
+```
+
+2. 使用 -p 指定映射端口
+```
+# -p 则可以指定要映射的端口，在一个指定端口上只可以绑定一个容器, 支持的格式：
+# ip:hostPort:containerPort | ip::containerPort | hostPort:containerPort
+$ docker run -d -p hostPort:containerPort training/webapp python app.py
+
+```
+
+
+
+
 
 
 # Reference
 
 [https://blog.csdn.net/u013246898/article/details/52945884](https://blog.csdn.net/u013246898/article/details/52945884)
+[https://yeasy.gitbooks.io/docker_practice/content/network/port_mapping.html](https://yeasy.gitbooks.io/docker_practice/content/network/port_mapping.html)
