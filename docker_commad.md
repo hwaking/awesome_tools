@@ -73,8 +73,38 @@ $ docker run -d -p hostPort:containerPort training/webapp python app.py
 
 ```
 
+## 三、docker 离线安装
+```
+1. 下载docker 安装包
+$ yum install --downloadonly --downloaddir=/root/docker-ce docker-ce
+2. 安装RPM 包
+$ rpm -ivh --force *.rpm
+3. 启动服务
+$ systemctl enable docker.service
+$ systemctl start docker.service
+$ docker images # 查看docker 镜像
+
+```
 
 
+
+
+## 其他
+
+1. 在centos下更新docker 到最新版本
+```
+# Update to upgrade docker CentOS 7.4
+$ yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux  docker-engine-selinux docker-engine
+$ yum install -y yum-utils device-mapper-persistent-data lvm2
+$ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+$ yum install docker-ce
+
+# Start your docker service
+$ systemctl start docker
+$ systemctl enable docker
+$ systemctl status docker
+
+```
 
 
 
