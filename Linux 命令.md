@@ -8,6 +8,26 @@ $ sudo  vim /etc/profile
 $ export PATH=XXXX:$PATH
 ```
 
+- 安装与卸载软件
+```
+
+安装
+$ yum install XXX
+
+下载不安装
+$ yum install --downloadonly --downloaddir='./root/download' XXX
+
+查看已经安装的包
+$ yum list installed
+
+卸载软件
+$ yum remove XXX
+
+升级包
+$ yum update XXX
+
+```
+
 - 创建软连接
 ```
 http://blog.csdn.net/zhangxinyu11021130/article/details/64125058
