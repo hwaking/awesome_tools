@@ -171,7 +171,12 @@ $ systemctl restart docker
 3. 测试配置的结果, 对比速度
 $ docker pull tensorflow/serving
 
+
+提示：若部署tensorflow/serving后运行出现“No module named 'tensorflow_serving.util”, 
+请使用“pip install tensorflow-serving-api”安装包解决。
+
 ```
+
 
 
 
