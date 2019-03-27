@@ -71,6 +71,29 @@ touch XXX.txt
 cat *.txt <a.txt
 ```
 
+- 文件打包
+```
+tar 打包命令的使用
+1. 仅打包，不压缩
+$ tar -cvf /etc.tar /etc
+2. 打包后，以 gzip 压缩
+$ tar -zcvf /etc.tar.gz /etc
+3. 打包后，以 bzip2 压缩
+$ tar -jcvf /etc.tar.gz /etc
+
+- tar 解压
+
+解压到当前目录
+$ tar -zxvf etc.tar.gz
+
+解压到指定目录(如test 目录, 必须预先存在)
+$ tar -zxvf etc.tar.gz -C ./test
+
+
+参考:[https://www.cnblogs.com/lijc1990/p/3545503.html](https://www.cnblogs.com/lijc1990/p/3545503.html)
+```
+
+
 
 -  服务器之间拷贝文件
 
@@ -114,8 +137,38 @@ du -sh /home/*
 kill cups 进程
 ```
 
+- 查询目录下文件物理内存占用情况
+```
+$ du -h --max-depth=1 /home
+```
 
+- pip 安装使用
 
+```
+1. 下载与安装包
+(1) 下载
+批量下载
+$ pip download -d \home\packs -r requirement.txt
+其中requirement.txt 内容认为 
+django==1.8.11
+simplejson==3.14.0
+
+或者
+$ pip download -d \home\packs django==1.8.11 simplejson==3.14.0
+
+(2) 指定源安装
+$ pip install web.py -i http://pypi.douban.com/simple
+参考：[https://www.cnblogs.com/sunnydou/p/5801760.html](https://www.cnblogs.com/sunnydou/p/5801760.html)
+
+2. 卸载文件
+批量卸载
+$ pip uninstall -r aa.txt
+
+3. 查看已经安装的包
+$ pip freeze
+$ pip freeze > piplist.txt
+
+```
 
 
 
