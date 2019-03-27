@@ -51,6 +51,30 @@ docker rm `docker ps -a -q`
 
 ```
 
+### docker 容器备份
+```
+第一步：选择要备份的容器，然后创建该容器的快照，可以使用 docker commit 命令来创建快照
+$ docker commit -p containID container_backup
+
+第二步： 通过docker images 命令来查看创建的容器镜像快照
+$ docker images
+
+第三步： 将创建的容器镜像快照保存到本地，供后续使用
+$ docker save -o ./container_backup.tar container_backup
+
+第四步： 恢复本地镜像快照的容器
+$ docker load -i ./container_backup.tar
+
+最后, 加载镜像运行Docker容器
+$ docker run -d -p 80:5000 container_backup
+
+参考：https://www.cnblogs.com/boshen-hzb/p/6373549.html
+```
+
+
+
+
+
 ## 二、外部访问容器
 
 容器中可以运行一些网络应用，要让外部也可以访问这些应用，可以通过 -P 或 -p 参数来指定端口映射。当使用 -P 标记时，Docker 会随机映射一个 49000~49900 的端口到内部容器开放的网络端口。
@@ -84,9 +108,34 @@ $ systemctl enable docker.service
 $ systemctl start docker.service
 $ docker images # 查看docker 镜像
 
+
 ```
 
+## 四、docker 私有仓库搭建
+```
+# 仓库搭建
+1. 从docker官方镜像pull 下registry镜像到本地
+$ docker pull registry
+2. 将本地镜像registry打包为文件
+$ docker save -o registry.tar registry
+3. 将文件拷到新的服务器，并加载镜像
+$ docker load -i registry.tar
+4. 执行以下命令，会启动一个registry容器，该容器用于提供私有仓库的服务
+$ docker run --name docker-registry -d -p 5000:5000 registry
+5. 执行命令curl -X GET http://127.0.0.1:5000/v2/_catalog，收到的响应如下，是个json对象，
+   其中repositories对应的值是空的json数组，表示目前仓库里还没有镜像
+$ curl -X GET http://127.0.0.1:5000/v2/_catalog
+$ {"repositories":[]} # 此时无镜像，故为空
 
+# 镜像相关操作
+1. 删除本地镜像
+$ docker rmi registry
+2. 从官方拉镜像
+$ docker pull registry
+3. 上传镜像到私有仓库
+docker push localhost:5000/XXX
+
+```
 
 
 ## 其他
@@ -106,9 +155,28 @@ $ systemctl status docker
 
 ```
 
+2. docker 配置中国镜像源
+```
+1. 使用vi修改 /etc/docker/daemon.json 文件并添加上”registry-mirrors”: [“https://registry.docker-cn.com“]：
+
+vi /etc/docker/daemon.json 
+{ 
+“registry-mirrors”: [“https://registry.docker-cn.com“] 
+}
+
+2. 配置完之后重启docker,配置文件生效
+$ systemctl daemon-reload
+$ systemctl restart docker
+
+3. 测试配置的结果, 对比速度
+$ docker pull tensorflow/serving
+
+```
 
 
 # Reference
 
+[https://blog.csdn.net/vevenlcf/article/details/82995838#/m/home/](https://blog.csdn.net/vevenlcf/article/details/82995838#/m/home/)
+[https://blog.csdn.net/boling_cavalry/article/details/78818462](https://blog.csdn.net/boling_cavalry/article/details/78818462)
 [https://blog.csdn.net/u013246898/article/details/52945884](https://blog.csdn.net/u013246898/article/details/52945884)
 [https://yeasy.gitbooks.io/docker_practice/content/network/port_mapping.html](https://yeasy.gitbooks.io/docker_practice/content/network/port_mapping.html)
