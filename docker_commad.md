@@ -71,9 +71,12 @@ $ docker run -d -p 80:5000 container_backup
 参考：https://www.cnblogs.com/boshen-hzb/p/6373549.html
 ```
 
-
-
-
+### docker 进入容器操作
+```
+1. 进入容器
+$ docker exec -it elastic_driscoll /bin/bash
+其余操作同linux
+```
 
 ## 二、外部访问容器
 
