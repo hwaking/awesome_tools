@@ -44,7 +44,15 @@ chmod 777 *.*
 
 - 添加用户权限
 ```
+修改权限
 sudo chmod -R 777 exapp/
+
+修改所属组别， 如将testfile文件夹的所有者改为zhc
+chgrp -R zhc testfile
+
+修改文件所有者, 如将testfile文件夹的所有者改为zhc
+chown -R zhc testfile
+
 ```
 
 
