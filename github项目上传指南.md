@@ -105,7 +105,7 @@ git push -u origin master
 
 - 分支保护
 Respository -> Branches -> project settings -> 分支保护
-
+![protected](https://github.com/Springzhen/awesome_tools/blob/master/%E5%88%86%E6%94%AF%E4%BF%9D%E6%8A%A4.jpg)
 
 
 
