@@ -101,6 +101,14 @@ git push -u origin master
     
 
 
+## gitlab 分支管理
+
+- 分支保护
+Respository -> Branches -> project settings -> 分支保护
+
+
+
+
 
 ## reference：
 - [https://blog.csdn.net/weixin_42152081/article/details/80635777](https://blog.csdn.net/weixin_42152081/article/details/80635777)
