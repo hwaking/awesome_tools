@@ -41,7 +41,7 @@ select * from dba_data_files;
 如，已有表空间位置'/home/data/data/system01.dbf'
 
 5.  根据已有表空间数据文件位置添加表新表空间数据文件位置
-alter tablespace  add datafile '/home/data/data/system02.dbf' size 20G autoextend on next 200m maxsize unlimited;
+alter tablespace XX add datafile '/home/data/data/system02.dbf' size 20G autoextend on next 200m maxsize unlimited;
 
 6.  新建完成后表空间使用情况查询
 --查看表空间的名字及文件所在位置
