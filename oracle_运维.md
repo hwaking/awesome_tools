@@ -77,7 +77,72 @@ select a.tablespace_name,
 
 ```
 
+### 账户权限管理
+```
+1. 管理账户
+# 以dba 用户连接数据库，并切换到指定容器
+su - oracle;
+sqlplus / as sysdba;
+show pdbs; 
+alter session set container= containderXXX;
+# 创建普通用户：
+create user username identified by password;
+-- 如： create user ky01 identified by ky01;
+# 授权登陆数据库权限：
+grant create session to ky01;
+# 授权操作表空间的权限：
+grant unlimited tablespace to ky01;
+grant create tablespace to ky01;
+grant alter tablespace to ky01;
+grant drop tablespace to ky01;
+grant manage tablespace to ky01;
+
+
+
+2. 权限管理
+# 授予用户查看所有表的权限
+grant select any table to ky01;
+
+# 授予用户操作表的权限：
+grant create table to ky01; (包含有create index权限, alter table, drop table权限)
+
+# 授予用户操作视图的权限:
+grant create any view to ky01; (包含有alter view, drop view权限)
+grant select any dictionary to ky01;
+grant select any table to ky01;
+
+# 授予用户操作触发器的权限：
+grant create trigger to ky01; (包含有alter trigger, drop trigger权限)
+# 授予用户操作存储过程的权限：
+grant create procedure to ky01;(包含有alter procedure, drop procedure 和function 以及 package权限)
+# 授予用户操作序列的权限：
+grant create sequence to ky01; (包含有创建、修改、删除以及选择序列)
+# 授予用户回退段权限：
+grant create rollback segment to ky01;
+grant alter rollback segment to ky01;
+grant drop rollback segment to ky01;
+# 授予用户同义词权限：
+grant create synonym to ky01;(包含drop synonym权限)
+grant create public synonym to ky01;
+grant drop public synonym to ky01;
+# 授予用户关于用户的权限：
+grant create user to ky01;
+grant alter user to ky01;
+grant become user to ky01;
+grant drop user to ky01;
+# 授予用户关于角色的权限：
+grant create role to ky01;
+# 授予用户操作概要文件的权限
+grant create profile to ky01;
+grant alter profile to ky01;
+grant drop profile to ky01;
+# 允许从sys用户所拥有的数据字典表中进行选择
+grant select any dictionary to ky01;
+``` 
+
 
 # Reference
 
 [https://www.cnblogs.com/jianshuai520/p/9766970.html](https://www.cnblogs.com/jianshuai520/p/9766970.html)
+[https://www.cnblogs.com/Devin-Blog/p/5556234.html](https://www.cnblogs.com/Devin-Blog/p/5556234.html)
+
