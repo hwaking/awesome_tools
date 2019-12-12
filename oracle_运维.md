@@ -100,6 +100,11 @@ grant manage tablespace to ky01;
 
 
 2. 权限管理
+
+# 单一表权限管理
+grant select,update, alter, drop on user.tablename to user;
+如：grant select,update, alter, drop on ky.EMR_STRUCTURE_TAB to ky01;
+
 # 授予用户查看所有表的权限
 grant select any table to ky01;
 
@@ -140,9 +145,54 @@ grant drop profile to ky01;
 grant select any dictionary to ky01;
 ``` 
 
+### oracle 性能优化
+```
+1. 索引管理
+创建单一索引
+create 索引类型 index 索引名称 on 表名(列名);
+默认为bittree索引
+示例：给表test中sid字段创建bitmap类型索引
+create bitmap index test_sid on test(sid);
+
+2.创建复合索引
+create index 索引名称 on 表名(列名1,列名2);
+
+3.删除索引
+drop index 索引名称;
+
+4.查询表的索引
+select * from all_indexes where table_name = '表名称';
+
+5.查询表的索引列
+select* from all_ind_columns where table_name = '表名称';
+
+
+2. 执行计划
+通过执行计划查看sql执行过程以及每一步的耗时及索引是否使用，并针对性进行优化
+可以通过navicate 工具中“解释”进行查看，或者通过sql语句进行查看
+
+analyze index index_name compute statistics;
+
+SELECT LPAD(' ', LEVEL-1) || OPERATION || ' (' || OPTIONS || ')' "Operation", OBJECT_NAME "Object", OPTIMIZER "Optimizer", COST "Cost", CARDINALITY "Cardinality", BYTES "Bytes", PARTITION_START "Partition Start", PARTITION_ID "Partition ID" , ACCESS_PREDICATES "Access Predicates", FILTER_PREDICATES "Filter Predicates" FROM PLAN_TABLE START WITH ID = 0 CONNECT BY PRIOR ID=PARENT_ID;
+
+3. 多进程SQL（parallel sql）
+基本语法
+/*+parallel(table_short_name,cash_number)*/
+-- 启用并行查询
+SQL> ALTER TABLE T1 PARALLEL;
+利用hints提示，启用并行，同时也可以告知明确的并行度，否则oracle自行决定启用的并行度，这些提示只对该sql语句有效。
+SQL> select /*+ parallel(t1 8) */ count(*)from t1;
+-- 取消并行设置
+SQL> alter table t1 noparallel;
+SQL> select degree from user_tables wheretable_name='T1';
+
+```
+
+
 
 # Reference
 
-[https://www.cnblogs.com/jianshuai520/p/9766970.html](https://www.cnblogs.com/jianshuai520/p/9766970.html)
-[https://www.cnblogs.com/Devin-Blog/p/5556234.html](https://www.cnblogs.com/Devin-Blog/p/5556234.html)
+- [https://www.cnblogs.com/jianshuai520/p/9766970.html](https://www.cnblogs.com/jianshuai520/p/9766970.html)
+- [https://www.cnblogs.com/Devin-Blog/p/5556234.html](https://www.cnblogs.com/Devin-Blog/p/5556234.html)
+- [https://blog.csdn.net/c2311156c/article/details/80660734](https://blog.csdn.net/c2311156c/article/details/80660734)
 
