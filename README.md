@@ -55,5 +55,12 @@ List the most popular tools usage
     
     ```
 
-
+- **ORACLE 常用命令**
+    
+    ```
+    记录 ORACLE 运维操作，包括账户管理，空间管理，权限管理以及oracle 性能优化等
+    
+    持续添加中......
+    
+    ```
     
