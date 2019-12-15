@@ -60,6 +60,7 @@ curl -X POST "localhost:9200/test/_doc/_bulk?pretty" -H 'Content-Type: applicati
 
 
 3. 导入json文件
+json 演示数据路径(链接：[https://pan.baidu.com/s/1gQ3BgVaqQoiIJxt-DxJrXQ](https://pan.baidu.com/s/1gQ3BgVaqQoiIJxt-DxJrXQ) 提取码：jt0l)
 curl -H "Content-Type: application/json" -XPOST "localhost:9200/bank/_doc/_bulk?pretty&refresh" --data-binary "@accounts.json"
 
 
