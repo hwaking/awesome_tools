@@ -1,6 +1,8 @@
 # python webservice 接口封装
 
 
+
+
 ## gunicorn+flask
 
 
@@ -18,38 +20,6 @@
 7. 在执行show pdbs; 
 open model 显示为READ WRITE，说明启动成功;
 ```
-
-### 容器container切换
-```
-切换容器后可以修改对应的账户信息并修改表空间
-alter session set container=cdrpdb;
-```
-
-
-### 容器内表空间扩建
-```
-oracle 12c 数据库表空间扩展方法：
-1.  ssh 进入oracle 数据库
-su - oracle;
-sqlplus / as sysdba;
-
-2.  查看表所用的表空间
-使用navicate工具查看需要扩增空间的表所使用的表空间名称，如'system'
-
-3.  查看当前用户所在容器位置
-show con_name;
-若跟目标表空间所在的容器位置不一致，则切换到目标容器，即
-进入表空间所在的容器container 
-alter session set container=cdrpdb;
-
-4.  查看表空间已有文件所在的位置
-select * from dba_data_files;
-如，已有表空间位置'/home/data/data/system01.dbf'
-
-5.  根据已有表空间数据文件位置添加表新表空间数据文件位置
-alter tablespace XX add datafile '/home/data/data/system02.dbf' size 20G autoextend on next 200m maxsize unlimited;
-
-
 
 
 
