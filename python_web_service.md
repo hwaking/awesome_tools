@@ -1,27 +1,17 @@
 # python webservice 接口封装
 
-
-
-
 ## gunicorn+flask
-
-
-
-
 
 ### 启动流程
 ```
-1. 进入系统su - oracle
-2. 执行 lsnrctl start   开启监听
-3. 执行 sqlplus / as sysdba
-4. startup执行 开启数据库
-5. alter pluggable database cdrpdb open;
-6. alter pluggable database cdrkypdb open;
-7. 在执行show pdbs; 
-open model 显示为READ WRITE，说明启动成功;
+1. config文件配置
+参考：gunicorn_config.py
+2. 启动服务
+如：gunicorn -b 0.0.0.0:1080 segment_service:app -c gunicorn_config.py
+
+也可以直接启动配置启动服务相关信息
+如：nohup gunicorn -w 24 -b 0.0.0.0:1080 flask_service:app > log.txt &
 ```
-
-
 
 # Reference
 
