@@ -156,6 +156,10 @@ $ systemctl start docker
 $ systemctl enable docker
 $ systemctl status docker
 
+2 . 其他
+进入镜像 
+$ docker run -t -i ebc8bc6b0a20 /bin/bash
+
 ```
 
 2. docker 配置中国镜像源
@@ -179,6 +183,8 @@ $ docker pull tensorflow/serving
 请使用“pip install tensorflow-serving-api”安装包解决。
 
 ```
+
+
 
 
 
