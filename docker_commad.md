@@ -68,7 +68,7 @@ $ docker save -o ./container_backup.tar container_backup
 $ docker load -i ./container_backup.tar
 
 最后, 加载镜像运行Docker容器
-$ docker run -d -p 80:5000 container_backup
+$ docker run -d -p 80:5000 --name container_name --restart=always -v $path container_backup
 
 参考：https://www.cnblogs.com/boshen-hzb/p/6373549.html
 ```
