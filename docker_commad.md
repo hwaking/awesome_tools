@@ -52,6 +52,8 @@ docker rm `docker ps -a -q`
 ```
 
 ### docker 容器备份
+
+- 通过commit/save/load 备份
 ```
 第一步：选择要备份的容器，然后创建该容器的快照，可以使用 docker commit 命令来创建快照
 $ docker commit -p containID container_backup
@@ -70,6 +72,21 @@ $ docker run -d -p 80:5000 container_backup
 
 参考：https://www.cnblogs.com/boshen-hzb/p/6373549.html
 ```
+
+- 通过export/import备份
+```
+第一步：export导出目标容器
+$ docker export containerid > dockerexport.tar
+第二步：使用import加载镜像
+$ docker import dockerexport.tar imagename:version
+第三步：启动容器
+说明：需要根据容器的启动方式设置后面的启动命令尾缀，此处示例用/bin/bash
+$ docker run -d -p port:port --name container_name --restart=always -v $path imagename:version  /bin/bash
+
+```
+
+
+
 
 ### docker 进入容器操作
 ```
