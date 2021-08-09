@@ -195,13 +195,31 @@ $ systemctl restart docker
 3. 测试配置的结果, 对比速度
 $ docker pull tensorflow/serving
 
-
 提示：若部署tensorflow/serving后运行出现“No module named 'tensorflow_serving.util”, 
 请使用“pip install tensorflow-serving-api”安装包解决。
 
 ```
 
 
+## 常见问题
+1. docker 安装完成无法正常启动
+```
+问题示例(1)： "bridge" network: failed to allocate gateway (11.90.20.0): Ad dress already in use
+解决方案： 修改docker网络的网段
+具体为：
+$ vi /etc/docker/daemon.json
+{
+    "log-driver":"json-file",
+    "bip":"11.90.20.1/24",
+    "log-opts":{
+        "max-size":"500M",
+        "max-file":"5"
+    }
+}
+
+修改daemon.json文件即可
+
+```
 
 
 
