@@ -210,14 +210,15 @@ $ docker pull tensorflow/serving
 $ vi /etc/docker/daemon.json
 {
     "log-driver":"json-file",
-    "bip":"11.90.20.1/24",
+    "bip":"11.90.20.0/24",
     "log-opts":{
         "max-size":"500M",
         "max-file":"5"
     }
 }
 
-修改daemon.json文件即可
+修改daemon.json文件即可，具体为：
+修改冲突的bip地址 11.90.20.0/24 改为 11.90.20.1/24 即可
 
 ```
 
